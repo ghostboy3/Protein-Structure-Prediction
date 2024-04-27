@@ -22,18 +22,17 @@ def display_protien(sequence):
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence, verify=False)
-    print(response.text)
+    # print(response.text)
 
     render_mol(response.text)
 
 sequence="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
 if __name__ == "__main__": 
-    display_protien(sequence)
-    # # response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', data=sequence)
-    # headers = {
-    #     'Content-Type': 'application/x-www-form-urlencoded',
-    # }
-    # response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence, verify=False)
-    # print(response.text)
-
-    # render_mol(response.text)
+    # display_protien(sequence)
+    # Create a text box for user input
+    user_input = st.sidebar.text_input("Enter Protein Sequence:", "")
+    try:
+        display_protien(user_input)
+    except Exception:
+        print("Error with sequence")
+    # Display the user input
