@@ -22,17 +22,36 @@ def display_protien(sequence):
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence, verify=False)
-    # print(response.text)
+    print(response.text)
 
     render_mol(response.text)
 
-sequence="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
-if __name__ == "__main__": 
-    # display_protien(sequence)
-    # Create a text box for user input
-    user_input = st.sidebar.text_input("Enter Protein Sequence:", "")
+def update(sequence):
     try:
-        display_protien(user_input)
+        display_protien(sequence)
     except Exception:
         print("Error with sequence")
-    # Display the user input
+sequence="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
+petaseSeq="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
+antifreezeSeq="QCTGGADCTSCTGACTGCGNCPNAVTCTNSQHCVKANTCTGSTDCNTAQTCTNSKDCFEANTCTDSTNCYKATACTNSSGCPGH"
+if __name__ == "__main__":   
+
+    # display_protien(sequence)
+    # Create a text box for user input
+    user_input = st.sidebar.text_input("Enter Protein Sequence:", key="user_message")
+    update(user_input)
+    
+    # Initialize session state variables
+    if "user_input" not in st.session_state:
+        st.session_state.user_input = ""
+    
+    petase = st.sidebar.button("PETase (Plastic Degradation Protein)")
+    antifreeze = st.sidebar.button("1EZG (Antifreeze Protein)")
+    if petase:
+        # print("HIIIII")
+        update(petaseSeq)
+        # st.session_state.user_input=antifreezeSeq
+    if antifreeze:
+        update(antifreezeSeq)
+        
+    st.write(f"Input value: {st.session_state.user_input}")
