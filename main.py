@@ -38,13 +38,17 @@ if __name__ == "__main__":
 
     # display_protien(sequence)
     # Create a text box for user input
-    user_input = st.sidebar.text_input("Enter Protein Sequence:", key="user_message")
-    update(user_input)
+    # user_input = st.sidebar.text_input("Enter Protein Sequence:", key="user_message")
+    # update(user_input)
     
     # Initialize session state variables
-    if "user_input" not in st.session_state:
-        st.session_state.user_input = ""
-    
+    # if "user_input" not in st.session_state:
+    #     st.session_state.user_input = ""
+    with st.form(key='my_form'):
+        user_input = st.text_input("Enter Protein Sequence:")
+        submit_button = st.form_submit_button("Submit")
+    if submit_button:
+        update(user_input)
     petase = st.sidebar.button("PETase (Plastic Degradation Protein)")
     antifreeze = st.sidebar.button("1EZG (Antifreeze Protein)")
     if petase:
@@ -54,4 +58,4 @@ if __name__ == "__main__":
     if antifreeze:
         update(antifreezeSeq)
         
-    st.write(f"Input value: {st.session_state.user_input}")
+    # st.write(f"Input value: {st.session_state.user_input}")
