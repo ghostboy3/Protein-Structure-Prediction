@@ -16,8 +16,24 @@ def render_mol(pdb):
     # pdbview.spin(True)
     showmol(pdbview, height = 500,width=800)
 
+def display_protien(sequence):
+    # response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', data=sequence)
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence, verify=False)
+    print(response.text)
 
-if __name__ == "__main__":
-    response = requests.get('https://files.rcsb.org/download/1AK4.pdb')
-    pdb_string = response.content.decode('utf-8')
-    render_mol(pdb_string)
+    render_mol(response.text)
+
+sequence="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
+if __name__ == "__main__": 
+    display_protien(sequence)
+    # # response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', data=sequence)
+    # headers = {
+    #     'Content-Type': 'application/x-www-form-urlencoded',
+    # }
+    # response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence, verify=False)
+    # print(response.text)
+
+    # render_mol(response.text)
