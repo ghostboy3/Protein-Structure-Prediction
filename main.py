@@ -22,28 +22,21 @@ def display_protien(sequence):
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence, verify=False)
-    print(response.text)
-
     render_mol(response.text)
 
 def update(sequence):
     try:
+        st.write("Sequence: "+ sequence)
         display_protien(sequence)
     except Exception:
         print("Error with sequence")
 sequence="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
 petaseSeq="MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
 antifreezeSeq="QCTGGADCTSCTGACTGCGNCPNAVTCTNSQHCVKANTCTGSTDCNTAQTCTNSKDCFEANTCTDSTNCYKATACTNSSGCPGH"
+insulinSeq="FVNQHLCGSHLVEALYLVCGERGFFYTPKT"
+lysozymeSeq="KVFERCELARTLKRLGMDGYRGISLANWMCLAKWESGYNTRATNYNAGDRSTDYGIFQINSRYWCNDGKTPGAVNACHLSCSALLQDNIADAVACAKRVVRDPQGIRAWVAWRNRCQNRDVRQYVQGCGV"
 if __name__ == "__main__":   
-
-    # display_protien(sequence)
-    # Create a text box for user input
-    # user_input = st.sidebar.text_input("Enter Protein Sequence:", key="user_message")
-    # update(user_input)
-    
-    # Initialize session state variables
-    # if "user_input" not in st.session_state:
-    #     st.session_state.user_input = ""
+    st.sidebar.title("Example Sequences")
     with st.form(key='my_form'):
         user_input = st.text_input("Enter Protein Sequence:")
         submit_button = st.form_submit_button("Submit")
@@ -51,11 +44,17 @@ if __name__ == "__main__":
         update(user_input)
     petase = st.sidebar.button("PETase (Plastic Degradation Protein)")
     antifreeze = st.sidebar.button("1EZG (Antifreeze Protein)")
+    insulin = st.sidebar.button("Insulin (Blood Sugar Regulation Protein)")
+    lysozyme = st.sidebar.button("Lysozyme (Bacterial Cell Wall Digestive Enzyme)")
     if petase:
         # print("HIIIII")
         update(petaseSeq)
         # st.session_state.user_input=antifreezeSeq
     if antifreeze:
         update(antifreezeSeq)
+    if insulin:
+        update(insulinSeq)
+    if lysozyme:
+        update(lysozymeSeq)
         
     # st.write(f"Input value: {st.session_state.user_input}")
