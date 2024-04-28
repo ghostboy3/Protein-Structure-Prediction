@@ -2,3 +2,6 @@ streamlit
 py3Dmol
 stmol
 requests
+ipywidgets
+ipyspeck
+ipython_genutils
